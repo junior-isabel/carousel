@@ -1,10 +1,13 @@
 function Carousel(target, options) {
   const container = document.querySelector(target)
   const carousel = {}
+  let slidePerFrame = options.slidePerFrame || 1
+  const _nodeContainer = container.cloneNode(true)
   const styleContainer = {
     'position': 'relative',
     'display': 'flex',
-    'overflow': 'hidden'
+    'overflow': 'hidden',
+    'border': '1px solid black'
   }
   const styleItem = {
     'display': 'flex',
@@ -15,12 +18,15 @@ function Carousel(target, options) {
   let animationState = true
   let timeStart = Date.now()
   let ligado = true
+  let timerId = -1
   carousel.loop = (seed = 5000) => {
-    if(Date.now() - timeStart > seed && ligado) {
+    if (!options.loop) return
+    if(Date.now() - timeStart > seed) {
       timeStart = Date.now()
       handlerNext()
     }
-    requestAnimationFrame((e) => {
+    cancelAnimationFrame(timerId)
+    timerId = requestAnimationFrame((e) => {
       carousel.loop(seed)
     })
   }
@@ -31,12 +37,21 @@ function Carousel(target, options) {
   }
   applyStyle(styleContainer, container)
   let border = container.getBoundingClientRect().left
+
   function setup() {
     let posX = 0
-    let _w = container.getBoundingClientRect().width / options.slidePerFrame
+    for(let breakpoint in options.breakPoints) {
+      if (breakpoint <= window.innerWidth) {
+        slidePerFrame = options.breakPoints[breakpoint].slidePerFrame
+      }
+    }
+    let _w = container.getBoundingClientRect().width / slidePerFrame
+    console.log(_w, container.getBoundingClientRect().width, window.innerWidth)
     if (container.children.length > 0) {
       container.style.height = container.children[0].getBoundingClientRect().height + 'px'
     }
+    container.removeEventListener('mouseenter', handlerSetupEnter)
+    container.removeEventListener('mouseleave', handlerSetupOver)
     container.addEventListener('mouseenter', handlerSetupEnter, false)
     container.addEventListener('mouseleave', handlerSetupOver, false)
     container.addEventListener('touchstart', handlerSetupEnter, false)
@@ -110,14 +125,35 @@ function Carousel(target, options) {
       animationState = true
     })
   }
-
+  window.addEventListener('resize', (e) => {
+    applyStyle(styleContainer, _nodeContainer)
+    Array.from(_nodeContainer.children).forEach(item => {
+      applyStyle(styleItem, item)
+    })
+    ligado = true
+    Array.from(_nodeContainer.children).forEach(item => {
+      item.style.transition = 'none'
+    })
+    //container.replaceWith(_nodeContainer)
+    cancelAnimationFrame(timerId)
+    setup()
+  })
   setup()
   return carousel
 }
 
 
 let carousel = Carousel('.carousel', {
-  slidePerFrame: 8,
+  slidePerFrame: 5,
+  loop: true,
+  breakPoints: {
+    768: {
+      slidePerFrame: 1
+    },
+    900: {
+      slidePerFrame: 5
+    }
+  },
   controllers: {
     back: null,
     next: null
