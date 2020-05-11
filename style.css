@@ -1,0 +1,15 @@
+* {
+    box-sizing: border-box;
+}
+.carousel {
+}
+.item {
+    border: 1px solid #000;
+}
+button {
+    position: fixed;
+    bottom: 0;
+}
+button:nth-child(3) {
+    left: 120px;
+}

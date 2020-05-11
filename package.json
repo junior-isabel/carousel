@@ -1,0 +1,29 @@
+{
+  "name": "carousel",
+  "version": "1.0.0",
+  "description": "carousel animation",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/junior-isabel/carousel.git"
+  },
+  "keywords": [
+    "carousel",
+    "slide",
+    "carousel",
+    "loop",
+    "carousel",
+    "infinity",
+    "carousel",
+    "animation"
+  ],
+  "author": "junior isabel chicapue",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/junior-isabel/carousel/issues"
+  },
+  "homepage": "https://github.com/junior-isabel/carousel#readme"
+}
