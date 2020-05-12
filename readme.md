@@ -25,8 +25,8 @@
         <div class="item">10</div>
     </div>
 
-    <button id="back">back</button>
-    <button id="next">next</button>
+   <button id="carousel-back">back</button>
+  <button id="carousel-next">next</button>
     <script src="script.js"></script>
 </body>
 </html>
