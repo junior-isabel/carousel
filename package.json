@@ -1,6 +1,6 @@
 {
   "name": "coe05-carousel",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "carousel animation",
   "main": "script.js",
   "scripts": {

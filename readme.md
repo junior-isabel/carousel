@@ -32,10 +32,25 @@
 </html>
 ```
 ```javascript
+
 let carousel = Carousel('.carousel', {
-  slidePerFrame: 8
+  slidePerFrame: 1,
+  loop: true,
+  responsive: {
+    breakPoints: {
+      768: {
+        slidePerFrame: 1
+      },
+      900: {
+        slidePerFrame: 5
+      }
+    },
+  },
+  controllers: {
+    back: '#carousel-back',
+    next: '#carousel-next'
+  }
 })
 
-carousel.loop(5000)
 ```
 ----------
